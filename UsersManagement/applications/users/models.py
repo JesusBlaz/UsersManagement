@@ -1,3 +1,7 @@
+## Terceros
+from localflavor.mx.models import MXCURPField
+
+# Django
 from django.db import models
 # Gestión de usuarios
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -20,6 +24,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=30,blank=True)
     last_name = models.CharField(max_length=30,blank=True)
     gender = models.CharField(max_length=1,choices=GENDER_CHOICES,blank=True)
+
+    #
+    curp = MXCURPField(blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
