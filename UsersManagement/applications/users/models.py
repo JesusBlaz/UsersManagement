@@ -19,22 +19,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     """ Gestión de usuarios """
 
     GENDER_CHOICES = (
-        ('M','MASCULINO'),
+        ('M', 'MASCULINO'),
         ('F', 'FEMENINO'),
         ('O', 'OTRO'),
     )
 
-    username = models.CharField(max_length=10,unique=True)
+    username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=30,blank=True)
-    last_name = models.CharField(max_length=30,blank=True)
-    gender = models.CharField(max_length=1,choices=GENDER_CHOICES,blank=True)
-
+    name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     #
     curp = MXCURPField(blank=True)
     rfc = MXRFCField(blank=True)
     cp = MXZipCodeField(blank=True)
-    phone_number = PhoneNumberField(region='MX',blank=True)
+    phone_number = PhoneNumberField(region='MX', blank=True)
+    date_of_birth = models.DateField(blank=True, null=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
