@@ -40,7 +40,9 @@ LOCAL_APPS = (
     'applications.users',
 )
 
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = (
+    'localflavor',
+)
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
