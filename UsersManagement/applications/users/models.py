@@ -4,6 +4,7 @@ from localflavor.mx.models import (
     MXRFCField,
     MXZipCodeField,
 )
+from phonenumber_field.modelfields import PhoneNumberField
 
 ## Django
 from django.db import models
@@ -33,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     curp = MXCURPField(blank=True)
     rfc = MXRFCField(blank=True)
     cp = MXZipCodeField(blank=True)
+    phone_number = PhoneNumberField(region='MX',blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
