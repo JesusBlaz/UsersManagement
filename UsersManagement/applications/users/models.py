@@ -2,14 +2,14 @@ from django.db import models
 # Gestión de usuarios
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 # Managers
-#from .managers import UserManager
+from .managers import UserManager
 
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
     """ Gestión de usuarios """
 
-    GENDER_CHOICES=(
+    GENDER_CHOICES = (
         ('M','MASCULINO'),
         ('F', 'FEMENINO'),
         ('O', 'OTRO'),
@@ -27,8 +27,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', ]
 
-    #Instanciamos nuestro manager
-    #objects=UserManager()
+    # Instanciamos nuestro manager
+    objects = UserManager()
 
 
     def __str__(self):
