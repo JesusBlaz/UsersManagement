@@ -1,7 +1,11 @@
 ## Terceros
-from localflavor.mx.models import MXCURPField
+from localflavor.mx.models import (
+    MXCURPField,
+    MXRFCField,
+    MXZipCodeField,
+)
 
-# Django
+## Django
 from django.db import models
 # Gestión de usuarios
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -27,6 +31,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     #
     curp = MXCURPField(blank=True)
+    rfc = MXRFCField(blank=True)
+    cp = MXZipCodeField(blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
