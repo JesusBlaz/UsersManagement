@@ -2,6 +2,13 @@
 from rest_framework.generics import (
     CreateAPIView,
 )
+# Autenticación Rest
+from rest_framework.authentication import (
+    SessionAuthentication,
+    BasicAuthentication
+)
+# Permissions Rest
+from rest_framework.permissions import IsAuthenticated
 # Serializers
 from .serializers import UserCreateSerializer
 # Response
@@ -18,6 +25,8 @@ class UserCreateAPIView(CreateAPIView):
     """ API para crear usuarios """
 
     serializer_class = UserCreateSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         """ Creamos usuarios """
