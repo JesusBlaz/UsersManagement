@@ -1,6 +1,7 @@
 ## DRF
 from rest_framework.generics import (
     CreateAPIView,
+    ListAPIView,
 )
 # Autenticación Rest
 from rest_framework.authentication import (
@@ -10,7 +11,10 @@ from rest_framework.authentication import (
 # Permissions Rest
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 # Serializers
-from .serializers import UserCreateSerializer
+from .serializers import (
+    UserCreateSerializer,
+    UserListSerializer,
+)
 # Response
 from rest_framework.response import Response
 
@@ -83,6 +87,17 @@ class UserCreateAPIView(CreateAPIView):
                 {'mensaje': 'Seleccione un rol, por favor.'}
             )
 
+
+class UserListAPIView(ListAPIView):
+    """ Api para listar los usuarios """
+
+    serializer_class = UserListSerializer
+
+    def get_queryset(self):
+        """ Mostramos los usuarios """
+
+        buscar_user = self.request.query_params.get('usuario', '')
+        return User.objects.list_by_keyword(buscar_user)
 
 
 

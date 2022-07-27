@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
+from django.db.models import Q
 
 class UserManager(BaseUserManager, models.Manager):
 
@@ -26,3 +27,11 @@ class UserManager(BaseUserManager, models.Manager):
     def create_user(self, username, email, curp, rfc, password=None, **extra_fields):
         return self.__create_user(username, email, curp, rfc, password, False, True, False, **extra_fields)
 
+    def list_by_keyword(self,user):
+        """ Lista usuarios por palabra clave """
+
+        return self.filter(
+            Q(username__icontains=user) |
+            Q(name__icontains=user) |
+            Q(last_name__icontains=user)
+        )

@@ -10,4 +10,9 @@ urlpatterns = [
         views.UserCreateAPIView.as_view(),
         name='crear_user'
     ),
+    path(
+        'api/list-user/',
+        views.UserListAPIView.as_view(),
+        name='listar_user'
+    ),
 ]
