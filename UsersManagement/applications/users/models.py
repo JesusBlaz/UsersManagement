@@ -1,3 +1,6 @@
+## Python
+from .validators import curp_validation
+
 ## Terceros
 from localflavor.mx.models import (
     MXCURPField,
@@ -36,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     #
-    curp = MXCURPField()
+    curp = models.CharField(max_length=18, validators=[curp_validation])
     rfc = MXRFCField()
     cp = MXZipCodeField(blank=True)
     phone_number = PhoneNumberField(region='MX', blank=True)
@@ -48,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', ]
+    REQUIRED_FIELDS = ['email', 'curp']
 
     # Instanciamos nuestro manager
     objects = UserManager()
