@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, pagination
 # Models
 from .models import User
 
@@ -42,3 +42,10 @@ class UserListSerializer(serializers.ModelSerializer):
             'date_of_birth',
             'rol',
         )
+
+
+class UserPagination(pagination.PageNumberPagination):
+    """ Paginación para users """
+
+    page_size = 5
+    max_page_size = 50

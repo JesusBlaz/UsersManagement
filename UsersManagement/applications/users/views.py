@@ -2,6 +2,7 @@
 from rest_framework.generics import (
     CreateAPIView,
     ListAPIView,
+    RetrieveUpdateDestroyAPIView,
 )
 # Autenticación Rest
 from rest_framework.authentication import (
@@ -14,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from .serializers import (
     UserCreateSerializer,
     UserListSerializer,
+    UserPagination,
 )
 # Response
 from rest_framework.response import Response
@@ -91,7 +93,10 @@ class UserCreateAPIView(CreateAPIView):
 class UserListAPIView(ListAPIView):
     """ Api para listar los usuarios """
 
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = UserListSerializer
+    pagination_class = UserPagination
 
     def get_queryset(self):
         """ Mostramos los usuarios """
@@ -100,6 +105,9 @@ class UserListAPIView(ListAPIView):
         return User.objects.list_by_keyword(buscar_user)
 
 
+class UserRetrieveUpdateDestroyAPI(RetrieveUpdateDestroyAPIView):
+    """ API que actualiza o elimina un usuario """
+    pass
 
 
 
