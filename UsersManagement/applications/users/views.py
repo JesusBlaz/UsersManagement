@@ -8,7 +8,7 @@ from rest_framework.authentication import (
     BasicAuthentication
 )
 # Permissions Rest
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
 # Serializers
 from .serializers import UserCreateSerializer
 # Response
@@ -26,7 +26,7 @@ class UserCreateAPIView(CreateAPIView):
 
     serializer_class = UserCreateSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def create(self, request, *args, **kwargs):
         """ Creamos usuarios """
