@@ -28,22 +28,22 @@ class UserCreateAPIView(CreateAPIView):
         User.objects.create_user(
             serializer.validated_data['username'],
             serializer.validated_data['email'],
+            serializer.validated_data['curp'],
+            serializer.validated_data['rfc'],
             serializer.validated_data['password'],
             # Extra Fields
             name=serializer.validated_data['name'],
             last_name=serializer.validated_data['last_name'],
             gender=serializer.validated_data['gender'],
-            curp=serializer.validated_data['curp'],
-            rfc=serializer.validated_data['rfc'],
             cp=serializer.validated_data['cp'],
             phone_number=serializer.validated_data['phone_number'],
             date_of_birth=serializer.validated_data['date_of_birth'],
-            rol=serializer.validated_data['rol'],
+            rol=serializer.validated_data['rol']
         )
 
 
         return Response(
-            {'status': 'ok'}
+            {'status': 'Guardado con éxito'}
         )
 
 
