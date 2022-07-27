@@ -15,4 +15,9 @@ urlpatterns = [
         views.UserListAPIView.as_view(),
         name='listar_user'
     ),
+    path(
+        'api/update-delete-user/<pk>/',
+        views.UserRetrieveUpdateDestroyAPI.as_view(),
+        name='update_delete_user'
+    ),
 ]

@@ -16,6 +16,7 @@ from .serializers import (
     UserCreateSerializer,
     UserListSerializer,
     UserPagination,
+    UserUpdateSerializer,
 )
 # Response
 from rest_framework.response import Response
@@ -107,7 +108,13 @@ class UserListAPIView(ListAPIView):
 
 class UserRetrieveUpdateDestroyAPI(RetrieveUpdateDestroyAPIView):
     """ API que actualiza o elimina un usuario """
-    pass
+
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    serializer_class = UserUpdateSerializer
+
+    queryset = User.objects.all()
+
 
 
 

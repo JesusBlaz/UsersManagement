@@ -30,6 +30,7 @@ class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            'id',
             'username',
             'email',
             'name',
@@ -49,3 +50,24 @@ class UserPagination(pagination.PageNumberPagination):
 
     page_size = 5
     max_page_size = 50
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    """ Serializador para actualizar datos usuarios """
+
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'email',
+            'name',
+            'last_name',
+            'gender',
+            'curp',
+            'rfc',
+            'cp',
+            'phone_number',
+            'date_of_birth',
+            'rol',
+            'is_active',
+        )
