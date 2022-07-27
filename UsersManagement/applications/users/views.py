@@ -11,6 +11,7 @@ from rest_framework.authentication import (
 )
 # Permissions Rest
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from .permissions import IsAdminIsRW
 # Serializers
 from .serializers import (
     UserCreateSerializer,
@@ -33,7 +34,7 @@ class UserCreateAPIView(CreateAPIView):
 
     serializer_class = UserCreateSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminIsRW]
 
     def create(self, request, *args, **kwargs):
         """ Creamos usuarios """
@@ -110,7 +111,7 @@ class UserRetrieveUpdateDestroyAPI(RetrieveUpdateDestroyAPIView):
     """ API que actualiza o elimina un usuario """
 
     authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAdminUser]
     serializer_class = UserUpdateSerializer
 
     queryset = User.objects.all()
