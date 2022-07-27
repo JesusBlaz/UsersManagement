@@ -34,26 +34,55 @@ class UserCreateAPIView(CreateAPIView):
         serializer = UserCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        User.objects.create_user(
-            serializer.validated_data['username'],
-            serializer.validated_data['email'],
-            serializer.validated_data['curp'],
-            serializer.validated_data['rfc'],
-            serializer.validated_data['password'],
-            # Extra Fields
-            name=serializer.validated_data['name'],
-            last_name=serializer.validated_data['last_name'],
-            gender=serializer.validated_data['gender'],
-            cp=serializer.validated_data['cp'],
-            phone_number=serializer.validated_data['phone_number'],
-            date_of_birth=serializer.validated_data['date_of_birth'],
-            rol=serializer.validated_data['rol']
-        )
+        rol_elegido = serializer.validated_data['rol']
 
+        if rol_elegido == '1':
+            # Creamos un superuser
+            User.objects.create_superuser(
+                serializer.validated_data['username'],
+                serializer.validated_data['email'],
+                serializer.validated_data['curp'],
+                serializer.validated_data['rfc'],
+                serializer.validated_data['password'],
+                # Extra Fields
+                name=serializer.validated_data['name'],
+                last_name=serializer.validated_data['last_name'],
+                gender=serializer.validated_data['gender'],
+                cp=serializer.validated_data['cp'],
+                phone_number=serializer.validated_data['phone_number'],
+                date_of_birth=serializer.validated_data['date_of_birth'],
+                rol=serializer.validated_data['rol']
+            )
+            return Response(
+                {'mensaje': 'Administrador guardado con éxito'}
+            )
 
-        return Response(
-            {'status': 'Guardado con éxito'}
-        )
+        elif rol_elegido == '2' or rol_elegido == '3':
+            # Creamos un user
+            User.objects.create_user(
+                serializer.validated_data['username'],
+                serializer.validated_data['email'],
+                serializer.validated_data['curp'],
+                serializer.validated_data['rfc'],
+                serializer.validated_data['password'],
+                # Extra Fields
+                name=serializer.validated_data['name'],
+                last_name=serializer.validated_data['last_name'],
+                gender=serializer.validated_data['gender'],
+                cp=serializer.validated_data['cp'],
+                phone_number=serializer.validated_data['phone_number'],
+                date_of_birth=serializer.validated_data['date_of_birth'],
+                rol=serializer.validated_data['rol']
+            )
+            return Response(
+                {'mensaje': 'Usuario guardado con éxito'}
+            )
+
+        else:
+            return Response(
+                {'mensaje': 'Seleccione un rol, por favor.'}
+            )
+
 
 
 
