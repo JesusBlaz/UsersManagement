@@ -36,17 +36,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     #
-    curp = MXCURPField(blank=True)
-    rfc = MXRFCField(blank=True)
+    curp = MXCURPField()
+    rfc = MXRFCField()
     cp = MXZipCodeField(blank=True)
     phone_number = PhoneNumberField(region='MX', blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
 
-    rol = models.CharField(
-        max_length=1,
-        blank=True,
-        choices=ROLES_CHOICES,
-    )
+    rol = models.CharField(max_length=1, choices=ROLES_CHOICES,)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
