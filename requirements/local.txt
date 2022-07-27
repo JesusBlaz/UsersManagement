@@ -2,7 +2,11 @@ asgiref==3.5.2
 Django==4.0.6
 django-localflavor==3.1
 django-phonenumber-field==6.3.0
+djangorestframework==3.13.1
+phonenumbers==8.12.52
 python-stdnum==1.17
+pytz==2022.1
 sqlparse==0.4.2
 tzdata==2022.1
 Unipath==1.1
+
