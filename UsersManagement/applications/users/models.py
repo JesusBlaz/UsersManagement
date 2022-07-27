@@ -24,6 +24,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('O', 'OTRO'),
     )
 
+    ROLES_CHOICES = (
+        ('1', 'Administrador'),
+        ('2', 'Lectura'),
+        ('3', 'Lectura/Escritura'),
+    )
+
     username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=30, blank=True)
@@ -35,6 +41,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     cp = MXZipCodeField(blank=True)
     phone_number = PhoneNumberField(region='MX', blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
+
+    rol = models.CharField(
+        max_length=1,
+        blank=True,
+        choices=ROLES_CHOICES,
+    )
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
