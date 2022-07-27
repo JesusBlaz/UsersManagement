@@ -1,5 +1,5 @@
 ## Python
-from .validators import curp_validation
+from .validators import curp_validation, rfc_validation
 
 ## Terceros
 from localflavor.mx.models import (
@@ -40,7 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     #
     curp = models.CharField(max_length=18, validators=[curp_validation])
-    rfc = MXRFCField()
+    rfc = models.CharField(max_length=13, validators=[rfc_validation])
     cp = MXZipCodeField(blank=True)
     phone_number = PhoneNumberField(region='MX', blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
