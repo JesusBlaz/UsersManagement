@@ -43,6 +43,7 @@ LOCAL_APPS = (
 THIRD_PARTY_APPS = (
     'localflavor',
     'phonenumber_field',
+    'rest_framework',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
