@@ -41,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     #
     curp = models.CharField(max_length=18, validators=[curp_validation])
     rfc = models.CharField(max_length=13, validators=[rfc_validation])
-    cp = models.CharField(max_length=5, blank=True,  validators=[cp_validation])
+    cp = models.CharField(max_length=5, blank=True, validators=[cp_validation])
     phone_number = PhoneNumberField(region='MX', blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
 
@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'curp', 'rfc',]
+    REQUIRED_FIELDS = ['email', 'curp', 'rfc', ]
 
     # Instanciamos nuestro manager
     objects = UserManager()
