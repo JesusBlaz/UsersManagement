@@ -1,4 +1,8 @@
 from django.urls import path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 # Views
 from . import views
 
@@ -19,5 +23,14 @@ urlpatterns = [
         'api/update-delete-user/<pk>/',
         views.UserRetrieveUpdateDestroyAPI.as_view(),
         name='update_delete_user'
+    ),
+    # Rest JWT Login
+    path(
+        'auth/login/',
+        TokenObtainPairView.as_view(),
+    ),
+    path(
+        'auth/token/refresh/',
+        TokenRefreshView.as_view(),
     ),
 ]

@@ -33,7 +33,7 @@ class UserCreateAPIView(CreateAPIView):
     """ API para crear usuarios """
 
     serializer_class = UserCreateSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated, IsAdminIsRW]
 
     def create(self, request, *args, **kwargs):
@@ -95,7 +95,7 @@ class UserCreateAPIView(CreateAPIView):
 class UserListAPIView(ListAPIView):
     """ Api para listar los usuarios """
 
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = UserListSerializer
     pagination_class = UserPagination
@@ -110,7 +110,7 @@ class UserListAPIView(ListAPIView):
 class UserRetrieveUpdateDestroyAPI(RetrieveUpdateDestroyAPIView):
     """ API que actualiza o elimina un usuario """
 
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAdminUser]
     serializer_class = UserUpdateSerializer
 
