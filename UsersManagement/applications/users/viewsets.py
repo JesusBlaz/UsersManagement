@@ -14,9 +14,6 @@ from .models import User
 class UserViewSet(viewsets.ViewSet):
     """ ViewSet para la gestión de usuarios """
 
-    queryset = User.objects.all()
-
-
     def list(self, request):
         """ Listamos usuarios por palabra clave """
 
@@ -31,6 +28,61 @@ class UserViewSet(viewsets.ViewSet):
         else:
             serializer = UserListSerializer(queryset, many=True)
             return Response(status=status.HTTP_200_OK,data=serializer.data)
+
+    def create(self, request):
+        """ Creación de usuarios """
+
+        serializer = UserCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        rol_elegido = serializer.validated_data['rol']
+
+        if rol_elegido == '1':
+            # Creamos un superuser
+            User.objects.create_superuser(
+                serializer.validated_data['username'],
+                serializer.validated_data['email'],
+                serializer.validated_data['curp'],
+                serializer.validated_data['rfc'],
+                serializer.validated_data['password'],
+                # Extra Fields
+                name=serializer.validated_data['name'],
+                last_name=serializer.validated_data['last_name'],
+                gender=serializer.validated_data['gender'],
+                cp=serializer.validated_data['cp'],
+                phone_number=serializer.validated_data['phone_number'],
+                date_of_birth=serializer.validated_data['date_of_birth'],
+                rol=serializer.validated_data['rol']
+            )
+            return Response(
+                {'mensaje': 'Administrador guardado con éxito'}
+            )
+
+        elif rol_elegido == '2' or rol_elegido == '3':
+            # Creamos un user
+            User.objects.create_user(
+                serializer.validated_data['username'],
+                serializer.validated_data['email'],
+                serializer.validated_data['curp'],
+                serializer.validated_data['rfc'],
+                serializer.validated_data['password'],
+                # Extra Fields
+                name=serializer.validated_data['name'],
+                last_name=serializer.validated_data['last_name'],
+                gender=serializer.validated_data['gender'],
+                cp=serializer.validated_data['cp'],
+                phone_number=serializer.validated_data['phone_number'],
+                date_of_birth=serializer.validated_data['date_of_birth'],
+                rol=serializer.validated_data['rol']
+            )
+            return Response(
+                {'mensaje': 'Usuario guardado con éxito'}
+            )
+
+        else:
+            return Response(
+                {'mensaje': 'Seleccione un rol, por favor.'}
+            )
 
 
 
