@@ -2,6 +2,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+# Permissions Rest
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from .permissions import IsAdminIsRW
 
 from .serializers import (
     UserCreateSerializer,
@@ -13,6 +16,19 @@ from .models import User
 
 class UserViewSet(viewsets.ViewSet):
     """ ViewSet para la gestión de usuarios """
+
+    def get_permissions(self):
+        """ Definimos los permisos para las acciones y roles """
+
+        if self.action == 'list' or self.action == 'retrieve':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'partial_update':
+            permission_classes = [IsAuthenticated, IsAdminIsRW]
+        else:
+            permission_classes = [IsAuthenticated, IsAdminUser]
+
+        return [permission() for permission in permission_classes]
+
 
     def list(self, request):
         """ Listamos usuarios por palabra clave """
