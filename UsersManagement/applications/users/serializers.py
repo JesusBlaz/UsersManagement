@@ -71,3 +71,37 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'rol',
             'is_active',
         )
+
+class ReadUserUpdateSerializer(serializers.ModelSerializer):
+    """ Serializador para actualizar datos usuarios """
+
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'email',
+            'name',
+            'last_name',
+            'gender',
+            'curp',
+            'rfc',
+            'cp',
+            'phone_number',
+            'date_of_birth',
+            'rol',
+            'is_active',
+        )
+        read_only_fields = (
+            'username',
+            'email',
+            'name',
+            'last_name',
+            'gender',
+            'curp',
+            'rfc',
+            'phone_number',
+            'date_of_birth',
+            'rol',
+            'is_active',
+        )
+

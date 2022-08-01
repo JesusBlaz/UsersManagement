@@ -10,6 +10,7 @@ from .serializers import (
     UserCreateSerializer,
     UserListSerializer,
     UserUpdateSerializer,
+    ReadUserUpdateSerializer,
 )
 from .models import User
 
@@ -28,7 +29,6 @@ class UserViewSet(viewsets.ViewSet):
             permission_classes = [IsAuthenticated, IsAdminUser]
 
         return [permission() for permission in permission_classes]
-
 
     def list(self, request):
         """ Listamos usuarios por palabra clave """
@@ -112,7 +112,12 @@ class UserViewSet(viewsets.ViewSet):
         """ Actualizamos usuario enviado por parámetro """
 
         instance = User.objects.get(id=pk)
-        serializer = UserUpdateSerializer(instance, data=request.data, partial=True)
+        user = self.request.user
+        if user.is_superuser or user.rol == 3:
+            serializer = UserUpdateSerializer(instance, data=request.data, partial=True)
+        else:
+            serializer = ReadUserUpdateSerializer(instance, data=request.data, partial=True)
+
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
