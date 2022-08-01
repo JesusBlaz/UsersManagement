@@ -123,4 +123,12 @@ class UserViewSet(viewsets.ViewSet):
 
         return Response(serializer.data)
 
+    def destroy(self, request, pk=None):
+        """ Elimina usuario """
+
+        user = User.objects.get(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
 
