@@ -113,7 +113,7 @@ class UserViewSet(viewsets.ViewSet):
 
         instance = User.objects.get(id=pk)
         user = self.request.user
-        if user.is_superuser or user.rol == 3:
+        if user.is_superuser:
             serializer = UserUpdateSerializer(instance, data=request.data, partial=True)
         else:
             serializer = ReadUserUpdateSerializer(instance, data=request.data, partial=True)
