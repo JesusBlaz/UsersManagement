@@ -6,9 +6,9 @@ from rest_framework.pagination import PageNumberPagination
 from .serializers import (
     UserCreateSerializer,
     UserListSerializer,
+    UserUpdateSerializer,
 )
 from .models import User
-
 
 
 class UserViewSet(viewsets.ViewSet):
@@ -27,7 +27,7 @@ class UserViewSet(viewsets.ViewSet):
             return paginator.get_paginated_response(serializer.data)
         else:
             serializer = UserListSerializer(queryset, many=True)
-            return Response(status=status.HTTP_200_OK,data=serializer.data)
+            return Response(status=status.HTTP_200_OK, data=serializer.data)
 
     def create(self, request):
         """ Creación de usuarios """
@@ -84,6 +84,22 @@ class UserViewSet(viewsets.ViewSet):
                 {'mensaje': 'Seleccione un rol, por favor.'}
             )
 
+    def retrieve(self, request, pk=None):
+        """ Recupera un usuario por pk """
 
+        queryset = User.objects.get(id=pk)
+        serializer = UserListSerializer(queryset)
+
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+    def partial_update(self, request, pk=None, *args, **kwargs):
+        """ Actualizamos usuario enviado por parámetro """
+
+        instance = User.objects.get(id=pk)
+        serializer = UserUpdateSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data)
 
 
